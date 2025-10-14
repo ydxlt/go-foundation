@@ -6,7 +6,6 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
-	"strconv"
 	"sync"
 	"time"
 
@@ -93,7 +92,7 @@ func CheckToken(ctx *gin.Context) {
 		ctx.AbortWithStatusJSON(http.StatusUnauthorized, dto.UnauthorizedError())
 		return
 	}
-	ctx.Request.Header.Set("uid", strconv.FormatInt(uid, 10))
+	ctx.Set(dto.HeaderUID, uid)
 	log.Debugf("CheckToken success, uid = %d", uid)
 	ctx.Next()
 }
@@ -195,8 +194,13 @@ func GetIDFromToken(accessToken string) (int64, error) {
 }
 
 func GetUIDFromContext(ctx *gin.Context) (int64, error) {
+	uid := ctx.GetInt64(dto.HeaderUID)
+	if uid > 0 {
+		return uid, nil
+	}
+	var err error
 	tokenString := ctx.GetHeader("Authorization")
-	uid, err := GetIDFromToken(tokenString)
+	uid, err = GetIDFromToken(tokenString)
 	if err != nil {
 		return 0, err
 	}
