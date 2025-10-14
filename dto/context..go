@@ -4,8 +4,8 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/ydxlt/go-foundaton/errs"
-	"github.com/ydxlt/go-foundaton/log"
+	"github.com/ydxlt/go-foundation/errs"
+	"github.com/ydxlt/go-foundation/log"
 
 	"github.com/gin-gonic/gin"
 )

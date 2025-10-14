@@ -3,8 +3,8 @@ package sign
 import (
 	"net/http"
 
-	"github.com/ydxlt/go-foundaton/dto"
-	"github.com/ydxlt/go-foundaton/log"
+	"github.com/ydxlt/go-foundation/dto"
+	"github.com/ydxlt/go-foundation/log"
 
 	"github.com/gin-gonic/gin"
 )

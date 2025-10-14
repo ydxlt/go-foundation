@@ -10,9 +10,9 @@ import (
 	"sync"
 	"time"
 
-	"github.com/ydxlt/go-foundaton/dto"
-	"github.com/ydxlt/go-foundaton/errs"
-	"github.com/ydxlt/go-foundaton/log"
+	"github.com/ydxlt/go-foundation/dto"
+	"github.com/ydxlt/go-foundation/errs"
+	"github.com/ydxlt/go-foundation/log"
 
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"

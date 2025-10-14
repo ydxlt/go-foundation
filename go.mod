@@ -1,4 +1,4 @@
-module github.com/ydxlt/go-foundaton
+module github.com/ydxlt/go-foundation
 
 go 1.25
 
