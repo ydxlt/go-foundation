@@ -84,8 +84,16 @@ func configs() Config {
 	return *cfg
 }
 
+var OpenWhitePaths []string
+
 // CheckToken 校验中间件
 func CheckToken(ctx *gin.Context) {
+	for _, p := range OpenWhitePaths {
+		if ctx.Request.URL.Path == p {
+			ctx.Next()
+			return
+		}
+	}
 	tokenString := ctx.GetHeader("Authorization")
 	uid, err := ValidateAccessToken(tokenString)
 	if err != nil {
