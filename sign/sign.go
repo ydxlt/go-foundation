@@ -1,9 +1,10 @@
 package sign
 
 import (
-	"go-api-comm/dto"
-	"go-api-comm/log"
 	"net/http"
+
+	"github.com/ydxlt/go-foundaton/dto"
+	"github.com/ydxlt/go-foundaton/log"
 
 	"github.com/gin-gonic/gin"
 )

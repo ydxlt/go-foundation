@@ -1,10 +1,11 @@
 package dto
 
 import (
-	"go-api-comm/errs"
-	"go-api-comm/log"
 	"net/http"
 	"strconv"
+
+	"github.com/ydxlt/go-foundaton/errs"
+	"github.com/ydxlt/go-foundaton/log"
 
 	"github.com/gin-gonic/gin"
 )

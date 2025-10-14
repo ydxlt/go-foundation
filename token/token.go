@@ -5,13 +5,14 @@ import (
 	"encoding/base64"
 	"errors"
 	"fmt"
-	"go-api-comm/dto"
-	"go-api-comm/errs"
-	"go-api-comm/log"
 	"net/http"
 	"strconv"
 	"sync"
 	"time"
+
+	"github.com/ydxlt/go-foundaton/dto"
+	"github.com/ydxlt/go-foundaton/errs"
+	"github.com/ydxlt/go-foundaton/log"
 
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"

@@ -1,4 +1,4 @@
-module github.com/ydxlt/go-api-comm
+module github.com/ydxlt/go-foundaton
 
 go 1.25
 
