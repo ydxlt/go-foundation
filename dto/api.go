@@ -105,8 +105,8 @@ func Error(code int, msg string) *Response {
 }
 
 // BadRequest 常见错误
-func BadRequest(msg string) *Response {
-	return Error(CodeBadRequest, msg)
+func BadRequest() *Response {
+	return Error(CodeBadRequest, "错误的请求")
 }
 
 // UnauthorizedError 未授权
@@ -120,8 +120,8 @@ func InternalError() *Response {
 }
 
 // ForbiddenError 禁止访问
-func ForbiddenError(msg string) *Response {
-	return Error(CodeForbidden, msg)
+func ForbiddenError() *Response {
+	return Error(CodeForbidden, "禁止访问")
 }
 
 // MessageError 带消息的错误（客户端Toast提示）
@@ -136,9 +136,9 @@ func ParamError() *Response {
 
 // UserNoFoundError 用户不存在
 func UserNoFoundError() *Response {
-
 	return Error(CodeUserNotFound, "用户不存在")
 }
+
 func CommonError(msg string) *Response {
 	return Error(CodeCommonError, msg)
 }
