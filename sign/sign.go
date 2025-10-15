@@ -1,6 +1,7 @@
 package sign
 
 import (
+	"errors"
 	"net/http"
 
 	"github.com/ydxlt/go-foundation/dto"
@@ -15,12 +16,22 @@ type Options struct {
 	WhiteList []string
 }
 
+func (o *Options) validate() {
+	if o.Sign == "" {
+		panic(errors.New("sign is required"))
+	}
+	if o.AccessKey == "" {
+		panic(errors.New("access_key is required"))
+	}
+}
+
 var SharedOptions *Options
 
 func requiredConfigs() {
 	if SharedOptions == nil {
 		panic("configs is nil")
 	}
+	SharedOptions.validate()
 }
 
 func CheckSign(ctx *gin.Context) {

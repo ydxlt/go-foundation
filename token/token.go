@@ -23,68 +23,59 @@ type Claims struct {
 	jwt.StandardClaims
 }
 
-// Config 配置结构
-type Config struct {
+// Options 配置结构
+type Options struct {
 	JwtKey    string        `mapstructure:"jwt_key"`
 	ExpiresAt time.Duration `mapstructure:"expires_at"`
 	Issuer    string        `mapstructure:"issuer"`
 }
 
+func (o *Options) Validate()  {
+	// 手动校验必填字段
+	if o.JwtKey == "" {
+		panic("token.jwt_key is required")
+	}
+	if o.ExpiresAt == 0 {
+		panic("token.expires_at is required")
+	}
+	if o.Issuer == "" {
+		panic("token.issuer is required")
+	}
+}
+
+var OpenWhitePaths []string
+
 var (
-	cfg  *Config
+	cfg  *Options
 	once sync.Once
 )
 
-var defaultConfig = &Config{
-	JwtKey:    "default_secret",
-	ExpiresAt: 7 * 24 * time.Hour,
-	Issuer:    "bk",
-}
-
-func InitWithConfig(c *Config) {
+func Init(c *Options) {
 	once.Do(func() {
-		if c == nil {
-			cfg = defaultConfig
-			return
-		}
-		applyDefaults(c)
 		cfg = c
 		log.Infof("[token] InitWithConfig loaded: %+v", cfg)
 	})
 }
 
-func InitFromViper() {
+func loadFromViper() {
 	once.Do(func() {
-		var c Config
+		var c Options
 		if err := viper.Sub("token").Unmarshal(&c); err != nil {
 			log.Infof("[token] viper unmarshal error: %v", err)
+			panic(err)
 		}
-		applyDefaults(&c)
+		c.Validate()
 		cfg = &c
 		log.Infof("[token] InitFromViper loaded: %+v", cfg)
 	})
 }
 
-func applyDefaults(c *Config) {
-	if c.JwtKey == "" {
-		c.JwtKey = defaultConfig.JwtKey
-	}
-	if c.ExpiresAt <= 0 {
-		c.ExpiresAt = defaultConfig.ExpiresAt
-	}
-	if c.Issuer == "" {
-		c.Issuer = defaultConfig.Issuer
-	}
-}
-
-func configs() Config {
+func configs() Options {
 	if cfg == nil {
-		InitFromViper() // 默认走 viper
+		loadFromViper() // 默认走 viper
 	}
 	return *cfg
 }
-
-var OpenWhitePaths []string
 
 // CheckToken 校验中间件
 func CheckToken(ctx *gin.Context) {
