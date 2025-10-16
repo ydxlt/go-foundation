@@ -79,6 +79,14 @@ func (b *Builder) Build() *Response {
 // ========== 快捷方法 ==========
 //
 
+// Ok 成功（无数据）
+func Ok() *Response {
+	return &Response{
+		Code: CodeSuccess,
+		Msg:  "success",
+	}
+}
+
 // Success 成功（带数据）
 func Success(data interface{}) *Response {
 	return &Response{
@@ -88,11 +96,12 @@ func Success(data interface{}) *Response {
 	}
 }
 
-// Ok 成功（无数据）
-func Ok() *Response {
+// SuccessWithMsg 成功（带数据）
+func SuccessWithMsg(message string, data interface{}) *Response {
 	return &Response{
 		Code: CodeSuccess,
-		Msg:  "success",
+		Msg:  message,
+		Data: data,
 	}
 }
 
@@ -136,7 +145,13 @@ func ParamError() *Response {
 
 // UserNoFoundError 用户不存在
 func UserNoFoundError() *Response {
+
 	return Error(CodeUserNotFound, "用户不存在")
+}
+
+// NoFoundError 资源不存在
+func NoFoundError() *Response {
+	return Error(CodeNotFound, "资源不存在")
 }
 
 func CommonError(msg string) *Response {
