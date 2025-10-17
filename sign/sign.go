@@ -42,7 +42,7 @@ func CheckSign(ctx *gin.Context) {
 			return
 		}
 	}
-	sign := ctx.GetHeader("sign")
+	sign := ctx.GetHeader(dto.HeaderAppSign)
 	if sign != SharedOptions.Sign {
 		log.Errorf("Error sign： %s\n", sign)
 		ctx.AbortWithStatusJSON(http.StatusUnauthorized, dto.UnauthorizedError())

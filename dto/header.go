@@ -5,16 +5,17 @@ import (
 )
 
 var (
-	HeaderAppID    = "X-App-ID"
-	HeaderAppSign  = "X-App-Sign"
-	HeaderUID      = "X-User-ID"
-	HeaderCID      = "X-Client-ID"
-	HeaderVC       = "X-Version-Code"
-	HeaderVN       = "X-Version-Name"
-	HeaderOS       = "X-Device-OS"
-	HeaderModel    = "X-Device-Model"
-	HeaderBrand    = "X-Device-Brand"
-	HeaderLanguage = "X-Device-Language"
+	HeaderAppID     = "X-App-ID"
+	HeaderAppSign   = "X-App-Sign"
+	HeaderAccessKey = "X-Access-Key"
+	HeaderUID       = "X-User-ID"
+	HeaderCID       = "X-Client-ID"
+	HeaderVC        = "X-Version-Code"
+	HeaderVN        = "X-Version-Name"
+	HeaderOS        = "X-Device-OS"
+	HeaderModel     = "X-Device-Model"
+	HeaderBrand     = "X-Device-Brand"
+	HeaderLanguage  = "X-Device-Language"
 )
 
 type CommHeaders struct {
