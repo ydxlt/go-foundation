@@ -30,7 +30,7 @@ type Options struct {
 	Issuer    string        `mapstructure:"issuer"`
 }
 
-func (o *Options) Validate()  {
+func (o *Options) Validate() {
 	// 手动校验必填字段
 	if o.JwtKey == "" {
 		panic("token.jwt_key is required")
@@ -85,7 +85,7 @@ func CheckToken(ctx *gin.Context) {
 			return
 		}
 	}
-	tokenString := ctx.GetHeader("Authorization")
+	tokenString := ctx.GetHeader(dto.HeaderAuthorization)
 	uid, err := ValidateAccessToken(tokenString)
 	if err != nil {
 		ctx.AbortWithStatusJSON(http.StatusUnauthorized, dto.UnauthorizedError())
