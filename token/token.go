@@ -88,10 +88,12 @@ func CheckToken(ctx *gin.Context) {
 	tokenString := ctx.GetHeader(dto.HeaderAuthorization)
 	uid, err := ValidateAccessToken(tokenString)
 	if err != nil {
+		log.Errorf("ValidateAccessToken error: %v", err)
 		ctx.AbortWithStatusJSON(http.StatusUnauthorized, dto.UnauthorizedError())
 		return
 	}
 	ctx.Set(dto.HeaderUID, uid)
+	ctx.Set(dto.HeaderAuthorization, tokenString)
 	log.Debugf("CheckToken success, uid = %d", uid)
 	ctx.Next()
 }
@@ -156,7 +158,7 @@ func GenerateTokens(uid int64) (Tokens, error) {
 
 func ValidateAccessToken(accessToken string) (int64, error) {
 	token, err := jwt.ParseWithClaims(accessToken, &Claims{}, func(token *jwt.Token) (interface{}, error) {
-		return configs().JwtKey, nil
+		return []byte(configs().JwtKey), nil
 	})
 
 	if err != nil {
