@@ -109,8 +109,7 @@ func GenerateAccessToken(uid int64) (string, int64, error) {
 			Issuer:    "bk",
 		},
 	}
-
-	token, err := jwt.NewWithClaims(jwt.SigningMethodHS256, claims).SignedString(configs().JwtKey)
+	token, err := jwt.NewWithClaims(jwt.SigningMethodHS256, claims).SignedString([]byte(configs().JwtKey))
 	if err != nil {
 		return "", 0, err
 	}
